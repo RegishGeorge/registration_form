@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.registrationform.Database.AppDatabase;
@@ -19,8 +20,9 @@ import com.example.registrationform.Database.UserDao;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button registerButton, loginButton;
-    EditText editemail,editpassword;
+    Button loginButton;
+    TextView registerButton;
+    EditText editemail, editpassword;
     AppDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +30,10 @@ public class LoginActivity extends AppCompatActivity {
         setStatusBarTranslucent(true);
         setContentView(R.layout.activity_login);
 
-        loginButton = findViewById(R.id.buttonLogin);
-        registerButton = findViewById(R.id.buttonRegister);
-        editemail = findViewById(R.id.editTextEmail);
-        editpassword = findViewById(R.id.editTextPassword);
+        loginButton = findViewById(R.id.button2);
+        registerButton = findViewById(R.id.textView2);
+        editemail = findViewById(R.id.editTextTextPersonName);
+        editpassword = findViewById(R.id.editTextTextPersonName2);
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "app-db").build();
 
         registerButton.setOnClickListener(new View.OnClickListener() {
