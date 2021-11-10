@@ -8,8 +8,9 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registration Form"
@@ -23,176 +24,214 @@
         app:layout_constraintVertical_bias="0.050000012" />
 
     <EditText
-        android:id="@+id/edit_txt_fname"
-        android:layout_width="match_parent"
+        android:id="@+id/editTextFname"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/input_bg"
         android:drawableStart="@drawable/ic_person"
         android:drawablePadding="10dp"
+        android:ems="10"
         android:hint="First Name"
         android:inputType="textPersonName"
-        android:paddingLeft="20dp"
+        android:paddingStart="15dp"
         android:paddingTop="10dp"
-        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
         android:paddingBottom="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
     <EditText
-        android:id="@+id/edit_txt_lname"
-        android:layout_width="match_parent"
+        android:id="@+id/editTextLname"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/input_bg"
         android:drawableStart="@drawable/ic_person"
         android:drawablePadding="10dp"
+        android:ems="10"
         android:hint="Last Name"
         android:inputType="textPersonName"
-        android:paddingLeft="20dp"
+        android:paddingStart="15dp"
         android:paddingTop="10dp"
-        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
         android:paddingBottom="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_txt_fname" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextFname" />
 
     <EditText
-        android:id="@+id/edit_txt_age"
-        android:layout_width="match_parent"
+        android:id="@+id/editTextAge"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/input_bg"
         android:drawableStart="@drawable/ic_cake"
         android:drawablePadding="10dp"
+        android:ems="10"
         android:hint="Age"
         android:inputType="number"
-        android:maxLength="3"
-        android:paddingLeft="20dp"
+        android:paddingStart="15dp"
         android:paddingTop="10dp"
-        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
         android:paddingBottom="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_txt_lname" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLname" />
 
     <EditText
-        android:id="@+id/edit_txt_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/input_bg"
-        android:drawableStart="@drawable/ic_email"
-        android:drawablePadding="10dp"
-        android:hint="Email address"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_txt_age" />
-
-    <EditText
-        android:id="@+id/edit_txt_mobile"
-        android:layout_width="match_parent"
+        android:id="@+id/editTextMobile"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/input_bg"
         android:drawableStart="@drawable/ic_phone"
         android:drawablePadding="10dp"
+        android:ems="10"
         android:hint="Mobile No."
-        android:inputType="number"
+        android:inputType="phone"
         android:maxLength="10"
-        android:paddingLeft="20dp"
+        android:paddingStart="15dp"
         android:paddingTop="10dp"
-        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
         android:paddingBottom="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_txt_email" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextAge" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/input_bg"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        android:paddingStart="15dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextMobile" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/input_bg"
+        android:drawableStart="@drawable/ic_password"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingStart="15dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+
+    <EditText
+        android:id="@+id/editTextConfirmPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/input_bg"
+        android:drawableStart="@drawable/ic_password"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:paddingStart="15dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Gender:"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_txt_mobile" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/textViewGender">
 
         <RadioButton
-            android:id="@+id/rbtn_male"
-            android:layout_width="wrap_content"
+            android:id="@+id/radioButtonMale"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:button="@drawable/custom_radio_button"
             android:padding="5dp"
             android:text="Male"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textColor="@color/white" />
 
         <RadioButton
-            android:id="@+id/rbtn_female"
-            android:layout_width="wrap_content"
+            android:id="@+id/radioButtonFemale"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:button="@drawable/custom_radio_button"
             android:padding="5dp"
             android:text="Female"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textColor="@color/white" />
 
         <RadioButton
-            android:id="@+id/rbtn_other"
-            android:layout_width="wrap_content"
+            android:id="@+id/radioButtonOther"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:button="@drawable/custom_radio_button"
             android:padding="5dp"
             android:text="Other"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
+            android:textColor="@color/white" />
     </RadioGroup>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_bg"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:text="Register"
-        android:textAlignment="center"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
