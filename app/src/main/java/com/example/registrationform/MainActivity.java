@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends Activity {
 
     //Declare all the views used in the XML file
-    EditText editTextFname, editTextLname, editTextAge, editTextEmail, editTextMobile;
+    EditText editTextFname, editTextLname, editTextAge, editTextEmail, editTextMobile,editTextPassword,editTextConfirmPassword;
     RadioGroup radioGroup;
     Button buttonRegister;
 
@@ -34,6 +34,8 @@ public class MainActivity extends Activity {
         editTextAge = findViewById(R.id.editTextAge);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextMobile = findViewById(R.id.editTextMobile);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         radioGroup = findViewById(R.id.radioGroup);
         buttonRegister = findViewById(R.id.buttonRegister);
 
@@ -45,12 +47,14 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //Read all the values entered by the user into string variables
-                String firstName, lastName, age, email, mobile, gender="";
+                String firstName, lastName, age, email, mobile, gender="",password,confirmpassword;
                 firstName = editTextFname.getText().toString().trim();
                 lastName = editTextLname.getText().toString().trim();
                 age = editTextAge.getText().toString().trim();
                 email = editTextEmail.getText().toString().trim();
                 mobile = editTextMobile.getText().toString().trim();
+                password = editTextPassword.getText().toString().trim();
+                confirmpassword = editTextConfirmPassword.getText().toString().trim();
                 switch(radioGroup.getCheckedRadioButtonId()) {
                     case R.id.radioButtonMale:      gender = "Male";
                                                     break;
@@ -74,7 +78,15 @@ public class MainActivity extends Activity {
                     editTextAge.setError("Invalid age");
                 } else if(mobile.isEmpty() || Long.parseLong(mobile)<1000000000) {
                     editTextMobile.setError("Invalid mobile number");
-                } else if(gender.isEmpty()) {
+                }
+                else if(password.length()<6) {
+                    editTextPassword.setError("Invalid password");
+                    if(!password.equals(confirmpassword));
+                        {
+                        Toast.makeText(MainActivity.this, "Passwords doesn't match", Toast.LENGTH_SHORT).show();
+                         }
+                    }
+                else if(gender.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please select your gender", Toast.LENGTH_SHORT).show();
                 } else {
                     //Set a title and message
@@ -88,6 +100,8 @@ public class MainActivity extends Activity {
                     editTextAge.getText().clear();
                     editTextEmail.getText().clear();
                     editTextMobile.getText().clear();
+                    editTextPassword.getText().clear();
+                    editTextConfirmPassword.getText().clear();
                     radioGroup.clearCheck();
                     getCurrentFocus().clearFocus();
                 }
