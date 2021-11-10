@@ -18,8 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends Activity {
 
     //Declare all the views used in the XML file
-    EditText editTextFname, editTextLname, editTextAge, editTextEmail, editTextMobile,editTextPassword,editTextConfirmPassword;
-    RadioGroup radioGroup;
+    EditText editTextFname, editTextEmail, editTextMobile,editTextPassword,editTextConfirmPassword;
     Button buttonRegister;
 
     @Override
@@ -29,15 +28,12 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         //Initialize all the views (linking to corresponding XML element ID)
-        editTextFname = findViewById(R.id.editTextFname);
-        editTextLname = findViewById(R.id.editTextLname);
-        editTextAge = findViewById(R.id.editTextAge);
-        editTextEmail = findViewById(R.id.editTextEmail);
-        editTextMobile = findViewById(R.id.editTextMobile);
-        editTextPassword = findViewById(R.id.editTextPassword);
-        editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
-        radioGroup = findViewById(R.id.radioGroup);
-        buttonRegister = findViewById(R.id.buttonRegister);
+        editTextFname = findViewById(R.id.editTextTextPersonName7);
+        editTextEmail = findViewById(R.id.editTextTextPersonName8);
+        editTextMobile = findViewById(R.id.editTextTextPersonName9);
+        editTextPassword = findViewById(R.id.editTextTextPersonName10);
+        editTextConfirmPassword = findViewById(R.id.editTextTextPersonName11);
+        buttonRegister = findViewById(R.id.button3);
 
         //Create an instance of AlertDialog.Builder
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -49,45 +45,27 @@ public class MainActivity extends Activity {
                 //Read all the values entered by the user into string variables
                 String firstName, lastName, age, email, mobile, gender="",password,confirmpassword;
                 firstName = editTextFname.getText().toString().trim();
-                lastName = editTextLname.getText().toString().trim();
-                age = editTextAge.getText().toString().trim();
                 email = editTextEmail.getText().toString().trim();
                 mobile = editTextMobile.getText().toString().trim();
                 password = editTextPassword.getText().toString().trim();
                 confirmpassword = editTextConfirmPassword.getText().toString().trim();
-                switch(radioGroup.getCheckedRadioButtonId()) {
-                    case R.id.radioButtonMale:      gender = "Male";
-                                                    break;
-                    case R.id.radioButtonFemale:    gender = "Female";
-                                                    break;
-                    case R.id.radioButtonOther:     gender = "Other";
-                                                    break;
-                }
 
                 //Create a summary message
-                String message = "Name: "+firstName+" "+lastName+"\nAge: "+age+"\nEmail: "+email+"\nMobile No.: "+mobile+"\nGender: "+gender;
+                String message = "Name: "+firstName+" "+"\nEmail: "+email+"\nMobile No.: "+mobile;
 
                 //Perform validation checks
                 if(firstName.isEmpty()) {
                     editTextFname.setError("Field is required");
-                } else if(lastName.isEmpty()) {
-                    editTextLname.setError("Field is required");
                 } else if(email.isEmpty() || (!Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
                     editTextEmail.setError("Invalid email");
-                } else if(age.isEmpty() || Integer.parseInt(age)==0) {
-                    editTextAge.setError("Invalid age");
                 } else if(mobile.isEmpty() || Long.parseLong(mobile)<1000000000) {
                     editTextMobile.setError("Invalid mobile number");
                 }
                 else if(password.length()<6) {
                     editTextPassword.setError("Invalid password");
-                    if(!password.equals(confirmpassword));
-                        {
+                    if(!password.equals(confirmpassword))  {
                         Toast.makeText(MainActivity.this, "Passwords doesn't match", Toast.LENGTH_SHORT).show();
-                         }
                     }
-                else if(gender.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Please select your gender", Toast.LENGTH_SHORT).show();
                 } else {
                     //Set a title and message
                     alertDialogBuilder.setTitle("Registration Successful");
@@ -96,13 +74,10 @@ public class MainActivity extends Activity {
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                     editTextFname.getText().clear();
-                    editTextLname.getText().clear();
-                    editTextAge.getText().clear();
                     editTextEmail.getText().clear();
                     editTextMobile.getText().clear();
                     editTextPassword.getText().clear();
                     editTextConfirmPassword.getText().clear();
-                    radioGroup.clearCheck();
                     getCurrentFocus().clearFocus();
                 }
             }

@@ -1,19 +1,27 @@
 package com.example.registrationform;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.registrationform.Database.AppDatabase;
+import com.example.registrationform.Database.User;
+import com.example.registrationform.Database.UserDao;
 
 public class LoginActivity extends AppCompatActivity {
 
     Button registerButton, loginButton;
     EditText editemail,editpassword;
+    AppDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.buttonRegister);
         editemail = findViewById(R.id.editTextEmail);
         editpassword = findViewById(R.id.editTextPassword);
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "app-db").build();
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,11 +50,18 @@ public class LoginActivity extends AppCompatActivity {
                 password = editpassword.getText().toString().trim();
                 if(email.isEmpty() || (!Patterns.EMAIL_ADDRESS.matcher(email).matches()))
                     editemail.setError("Invalid email");
-                if(password.isEmpty())
+                else if(password.isEmpty())
                     editpassword.setError("Invalid password");
                 else {
-                    Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
-                    startActivity(intent);
+                    UserDao userDao = db.userDao();
+                    String dbPass = userDao.getPasswordByEmail(email);
+                    Log.d("BUILD", "onClick: dbPass:" + dbPass);
+                    if (!password.equals(dbPass)) {
+                        Toast.makeText(LoginActivity.this, "Invalid credentials!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
