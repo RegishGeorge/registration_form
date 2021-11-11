@@ -2,7 +2,10 @@ package com.example.registrationform;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
@@ -11,21 +14,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.registrationform.Database.AppDatabase;
+import com.example.registrationform.Database.User;
+import com.example.registrationform.Database.UserDao;
 
 public class MainActivity extends Activity {
 
     //Declare all the views used in the XML file
     EditText editTextFname, editTextEmail, editTextMobile,editTextPassword,editTextConfirmPassword;
     Button buttonRegister;
+    TextView textLogin;
+    AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatusBarTranslucent(true);
         setContentView(R.layout.activity_main);
+
 
         //Initialize all the views (linking to corresponding XML element ID)
         editTextFname = findViewById(R.id.editTextTextPersonName7);
@@ -34,24 +45,37 @@ public class MainActivity extends Activity {
         editTextPassword = findViewById(R.id.editTextTextPersonName10);
         editTextConfirmPassword = findViewById(R.id.editTextTextPersonName11);
         buttonRegister = findViewById(R.id.button3);
+        textLogin = findViewById(R.id.textView);
 
+        db = AppDatabase.getDatabase(MainActivity.this);
         //Create an instance of AlertDialog.Builder
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+
+        textLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String res = getIntent().getStringExtra("fromActivity");
+                if (res != null && res.equals("Login")) {
+                    finish();
+                } else {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class)
+                            .putExtra("fromActivity", "Register");
+                    startActivity(intent);
+                }
+            }
+        });
 
         //Define what must happen when the Register button is clicked
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Read all the values entered by the user into string variables
-                String firstName, lastName, age, email, mobile, gender="",password,confirmpassword;
+                String firstName, email, mobile,password, confirm_password;
                 firstName = editTextFname.getText().toString().trim();
                 email = editTextEmail.getText().toString().trim();
                 mobile = editTextMobile.getText().toString().trim();
                 password = editTextPassword.getText().toString().trim();
-                confirmpassword = editTextConfirmPassword.getText().toString().trim();
-
-                //Create a summary message
-                String message = "Name: "+firstName+" "+"\nEmail: "+email+"\nMobile No.: "+mobile;
+                confirm_password = editTextConfirmPassword.getText().toString().trim();
 
                 //Perform validation checks
                 if(firstName.isEmpty()) {
@@ -63,22 +87,23 @@ public class MainActivity extends Activity {
                 }
                 else if(password.length()<6) {
                     editTextPassword.setError("Invalid password");
-                    if(!password.equals(confirmpassword))  {
+                    if(!password.equals(confirm_password))  {
                         Toast.makeText(MainActivity.this, "Passwords doesn't match", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    //Set a title and message
-                    alertDialogBuilder.setTitle("Registration Successful");
-                    alertDialogBuilder.setMessage(message);
-                    alertDialogBuilder.setPositiveButton("OK", null);
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
-                    editTextFname.getText().clear();
-                    editTextEmail.getText().clear();
-                    editTextMobile.getText().clear();
-                    editTextPassword.getText().clear();
-                    editTextConfirmPassword.getText().clear();
-                    getCurrentFocus().clearFocus();
+                    UserDao userDao = db.userDao();
+                    User dbUser = userDao.getUserByEmail(email);
+                    if (dbUser != null) {
+                        Toast.makeText(MainActivity.this, "Email already in use!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        dbUser = new User(firstName, email, mobile, password);
+                        userDao.insert(dbUser);
+                        Log.d("TAG", "onClick: dbUser" + dbUser);
+                        Intent intent = new Intent(MainActivity.this, HomeScreenActivity.class)
+                                .putExtra("userId", userDao.getUserByEmail(email).uid);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }
         });

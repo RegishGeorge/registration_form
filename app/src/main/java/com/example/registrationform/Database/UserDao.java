@@ -9,8 +9,8 @@ import java.util.List;
 
 @Dao
 public interface UserDao {
-    @Query("SELECT password FROM users WHERE email=:input_email")
-    String getPasswordByEmail(String input_email);
+    @Query("SELECT * FROM users WHERE email=:input_email")
+    User getUserByEmail(String input_email);
 
     @Query("SELECT * FROM users WHERE uid=:userId")
     User getUser(int userId);

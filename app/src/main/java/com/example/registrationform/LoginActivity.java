@@ -1,11 +1,9 @@
 package com.example.registrationform;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,17 +28,24 @@ public class LoginActivity extends AppCompatActivity {
         setStatusBarTranslucent(true);
         setContentView(R.layout.activity_login);
 
+        db = AppDatabase.getDatabase(LoginActivity.this);
+
         loginButton = findViewById(R.id.button2);
         registerButton = findViewById(R.id.textView2);
         editemail = findViewById(R.id.editTextTextPersonName);
         editpassword = findViewById(R.id.editTextTextPersonName2);
-        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "app-db").build();
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                String res = getIntent().getStringExtra("fromActivity");
+                if (res != null && res.equals("Login")) {
+                    finish();
+                } else {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class)
+                            .putExtra("fromActivity", "Login");
+                    startActivity(intent);
+                }
             }
         });
 
@@ -56,12 +61,14 @@ public class LoginActivity extends AppCompatActivity {
                     editpassword.setError("Invalid password");
                 else {
                     UserDao userDao = db.userDao();
-                    String dbPass = userDao.getPasswordByEmail(email);
-                    Log.d("BUILD", "onClick: dbPass:" + dbPass);
-                    if (!password.equals(dbPass)) {
+                    User dbUser = userDao.getUserByEmail(email);
+                    if (dbUser == null) {
+                        Toast.makeText(LoginActivity.this, "User not Found!", Toast.LENGTH_SHORT).show();
+                    }  else if (!password.equals(dbUser.password)) {
                         Toast.makeText(LoginActivity.this, "Invalid credentials!", Toast.LENGTH_SHORT).show();
                     } else {
-                        Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class)
+                                .putExtra("userId", dbUser.uid);
                         startActivity(intent);
                     }
                 }
